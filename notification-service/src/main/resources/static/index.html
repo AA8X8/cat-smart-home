@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Уведомления</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .status { padding: 10px; margin-bottom: 15px; border-radius: 5px; font-weight: bold; }
+        .connected { background: #d4edda; color: #155724; }
+        .disconnected { background: #f8d7da; color: #721c24; }
+        .notifications { list-style: none; padding: 0; }
+        .notification { background: #f0f0f0; padding: 10px; margin-bottom: 8px; border-radius: 5px; border-left: 4px solid #28a745; }
+        .time { font-size: 11px; color: #666; margin-top: 5px; }
+        button { padding: 8px 15px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #c82333; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>📡 WebSocket Уведомления (Умный дом кота)</h2>
+    <div id="status" class="status disconnected">⚪ Отключено</div>
+    <button id="clearBtn">Очистить</button>
+    <ul id="notifications" class="notifications">
+        <li style="color: #999;">Нет уведомлений...</li>
+    </ul>
+</div>
+<script>
+    const WS_URL = "ws://localhost:8084/ws/notifications";
+    let reconnectAttempt = 0;
+
+    const statusDiv = document.getElementById('status');
+    const notificationsList = document.getElementById('notifications');
+
+    function addNotification(data) {
+        if (notificationsList.children.length === 1 &&
+            notificationsList.children[0].innerText === 'Нет уведомлений...') {
+            notificationsList.innerHTML = '';
+        }
+        const li = document.createElement('li');
+        li.className = 'notification';
+        const time = new Date().toLocaleTimeString();
+        li.innerHTML = `
+            <strong>${data.title || 'Уведомление'}</strong><br>
+            ${data.message || data.description || JSON.stringify(data)}<br>
+            <span class="time">${time}</span>
+        `;
+        notificationsList.insertBefore(li, notificationsList.firstChild);
+    }
+
+    document.getElementById('clearBtn').onclick = () => {
+        notificationsList.innerHTML = '<li style="color: #999;">Нет уведомлений...</li>';
+    };
+
+    function updateStatus(connected) {
+        if (connected) {
+            statusDiv.className = 'status connected';
+            statusDiv.innerHTML = '✅ Подключено';
+        } else {
+            statusDiv.className = 'status disconnected';
+            statusDiv.innerHTML = '🔴 Отключено. Переподключение...';
+        }
+    }
+
+    function connect() {
+        const ws = new WebSocket(WS_URL);
+        ws.onopen = () => {
+            console.log("✅ WebSocket подключен");
+            reconnectAttempt = 0;
+            updateStatus(true);
+        };
+        ws.onmessage = (event) => {
+            console.log("📩 Получено:", event.data);
+            try {
+                const data = JSON.parse(event.data);
+                addNotification(data);
+            } catch (e) {
+                addNotification({ title: "Ошибка", message: event.data });
+            }
+        };
+        ws.onclose = (event) => {
+            console.log(`🔌 Отключен: ${event.code}`);
+            updateStatus(false);
+            const delay = Math.min(1000 * Math.pow(2, reconnectAttempt), 30000);
+            reconnectAttempt++;
+            setTimeout(connect, delay);
+        };
+        ws.onerror = (error) => {
+            console.error("❌ Ошибка:", error);
+        };
+    }
+
+    connect();
+</script>
+</body>
+</html>

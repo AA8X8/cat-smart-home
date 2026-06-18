@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_package = "edu.rutmiit.demo.grpc";
+option java_multiple_files = true;
+
+package catanalytics;
+
+service CatAnalytics {
+  rpc AnalyzeCat (AnalyzeCatRequest) returns (CatAnalysisResponse);
+  rpc PredictActivity (PredictActivityRequest) returns (PredictActivityResponse);
+}
+
+message AnalyzeCatRequest {
+  int64 cat_id = 1;
+  string name = 2;
+  string breed = 3;
+  int32 visits_hall = 4;
+  double activity_hours = 5;
+  int32 events_count = 6;
+  string activity_status = 7;
+}
+
+message CatAnalysisResponse {
+  int64 cat_id = 1;
+  string activity_level = 2;
+  string health_status = 3;
+  double recommendation_score = 4;
+  string enrichment_suggestion = 5;
+  string recommended_toys = 6;
+}
+
+message PredictActivityRequest {
+  int64 cat_id = 1;
+  string time_of_day = 2;
+  int32 days_history = 3;
+}
+
+message PredictActivityResponse {
+  int64 cat_id = 1;
+  double predicted_activity_hours = 2;
+  string most_active_period = 3;
+  string recommendation = 4;
+}

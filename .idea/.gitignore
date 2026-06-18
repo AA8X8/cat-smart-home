@@ -1,0 +1,74 @@
+# ==============================
+# IntelliJ IDEA (ваши правила)
+# ==============================
+/shelf/
+/workspace.xml
+/queries/
+/dataSources/
+/dataSources.local.xml
+/httpRequests/
+
+# ==============================
+# IntelliJ IDEA (общие)
+# ==============================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.settings/
+.project
+.classpath
+.factorypath
+
+# ==============================
+# Maven
+# ==============================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+*.jar
+*.war
+*.ear
+
+# ==============================
+# Логи
+# ==============================
+*.log
+logs/
+
+# ==============================
+# Системные файлы ОС
+# ==============================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ==============================
+# VS Code (если кто-то использует)
+# ==============================
+.vscode/
+
+# ==============================
+# Spring Boot (локальные конфиги)
+# ==============================
+application-local.properties
+application-dev.properties
+application-test.properties
+
+# ==============================
+# Временные файлы
+# ==============================
+*.tmp
+*.bak
+*.orig
+
+# ==============================
+# Сгенерированные gRPC-файлы (если они у вас в папке)
+# ==============================
+# (раскомментируйте, если нужно)
+# target/generated-sources/
+# grpc-contract/target/

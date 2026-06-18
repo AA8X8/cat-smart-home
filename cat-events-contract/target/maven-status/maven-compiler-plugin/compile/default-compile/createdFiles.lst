@@ -1,0 +1,12 @@
+edu\rutmiit\demo\cateventscontract\events\CatEvent$Enriched.class
+edu\rutmiit\demo\cateventscontract\events\ActionEvent.class
+edu\rutmiit\demo\cateventscontract\events\SensorEvent$Occurred.class
+edu\rutmiit\demo\cateventscontract\events\CatEvent$Updated.class
+edu\rutmiit\demo\cateventscontract\events\EventEnvelope.class
+edu\rutmiit\demo\cateventscontract\events\EventMetadata.class
+edu\rutmiit\demo\cateventscontract\events\CatEvent$Created.class
+edu\rutmiit\demo\cateventscontract\events\SensorEvent.class
+edu\rutmiit\demo\cateventscontract\events\CatEvent$Deleted.class
+edu\rutmiit\demo\cateventscontract\events\CatEvent.class
+edu\rutmiit\demo\cateventscontract\events\ActionEvent$Executed.class
+edu\rutmiit\demo\cateventscontract\events\RoutingKeys.class

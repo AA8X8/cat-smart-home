@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/audit-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-events-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-events-contract/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-grpc-analytics-server/cat-grpc-enrichment-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-grpc-analytics-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-grpc-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cat-grpc-enrichment-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rest-v1-2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rest-v1.2/books-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rest-v1.2/demo-rest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rmq-1.0/audit-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rmq-1.0/books-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rmq-1.0/books-events-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rmq-1.0/books-events-contract/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-rmq-1.0/demo-rest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demoserver/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/grpc-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/grpc-contract/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/books-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rest-v1.2/books-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rest-v1.2/demo-rest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rest-v1/books-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rest-v1/demo-rest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rest-v1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rmq-1.0/audit-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rmq-1.0/books-api-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rmq-1.0/books-events-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rmq-1.0/books-events-contract/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/demo-rmq-1.0/demo-rest/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/labs/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notification-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

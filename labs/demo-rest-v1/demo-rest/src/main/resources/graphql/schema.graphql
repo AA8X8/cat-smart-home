@@ -1,0 +1,173 @@
+# =============================================================================
+# GraphQL-контракт для Books API
+#
+# Эта схема описывает все доступные запросы (Query), мутации (Mutation) и типы.
+# По функциональности она полностью соответствует REST API: те же сущности,
+# те же операции (CRUD), те же фильтры и пагинация.
+#
+# Преимущество GraphQL — клиент сам выбирает, какие поля ему нужны.
+# Вложенные связи (Book → Author, Author → Books) разрешаются автоматически.
+# =============================================================================
+
+# Пользовательские скалярные типы для работы с датой и временем.
+# DGS преобразует их в java.time.LocalDateTime и java.time.LocalDate.
+scalar DateTime
+scalar Date
+
+# ---------------------------------------------------------------------------
+# Основные типы данных
+# ---------------------------------------------------------------------------
+
+# Автор книги — содержит биографическую информацию и список книг.
+type Author {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    fullName: String!
+    email: String
+    bio: String
+    birthDate: Date
+    nationality: String
+    booksCount: Int!
+    averageRating: Float
+
+    # Связь «один ко многим»: книги данного автора с пагинацией.
+    # Резолвер загружает книги только если клиент запросил это поле.
+    books(page: Int = 0, size: Int = 20): BookConnection!
+}
+type Review {
+    id: ID!
+    text: String!
+    rating: Int!
+    createdAt: DateTime!
+}
+
+# Книга — основная сущность каталога.
+type Book {
+    id: ID!
+    title: String!
+    isbn: String!
+    description: String
+    genre: String
+    publishedYear: Int
+    language: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    author: Author!
+    reviews: [Review!]!
+}
+
+
+
+# ---------------------------------------------------------------------------
+# Типы для пагинации
+# ---------------------------------------------------------------------------
+
+# Постраничная коллекция книг.
+type BookConnection {
+    content: [Book!]!
+    pageInfo: PageInfo!
+    totalElements: Int!
+}
+
+# Постраничная коллекция авторов.
+type AuthorConnection {
+    content: [Author!]!
+    pageInfo: PageInfo!
+    totalElements: Int!
+}
+
+# Метаданные страницы — номер, размер, общее число страниц.
+type PageInfo {
+    pageNumber: Int!
+    pageSize: Int!
+    totalPages: Int!
+    last: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Входные типы для мутаций
+# ---------------------------------------------------------------------------
+
+# Создание новой книги. Все обязательные поля совпадают с REST BookRequest.
+input CreateBookInput {
+    title: String!
+    isbn: String!
+    authorId: ID!
+    description: String
+    genre: String
+    publishedYear: Int
+    language: String
+}
+input CreateReviewInput {
+    bookId: ID!
+    text: String!
+    rating: Int!
+}
+
+# Полное обновление книги. Автора изменить нельзя (как и в REST PUT).
+input UpdateBookInput {
+    title: String!
+    isbn: String!
+    description: String
+    genre: String
+    publishedYear: Int
+    language: String
+}
+
+# Создание или полное обновление автора.
+input CreateAuthorInput {
+    firstName: String!
+    lastName: String!
+    email: String
+    bio: String
+    birthDate: Date
+    nationality: String
+    numberPhone: String
+}
+
+# Полное обновление автора — все поля как при создании.
+input UpdateAuthorInput {
+    firstName: String!
+    lastName: String!
+    email: String
+    bio: String
+    birthDate: Date
+    nationality: String
+    numberPhone: String
+}
+
+# Фильтрация книг — аналог query-параметров в REST GET /api/books.
+input BookFilter {
+    authorId: ID
+    genre: String
+    publishedYear: Int
+    titleSearch: String
+}
+input AuthorFilter {
+    nationality: String
+    nameSearch: String
+}
+
+# ---------------------------------------------------------------------------
+# Корневые точки входа: запросы и мутации
+# ---------------------------------------------------------------------------
+
+type Query {
+    book(id: ID!): Book
+    reviews(bookId: ID!): [Review!]!
+    booksByGenre(genre: String!, page: Int = 0, size: Int = 20): BookConnection!
+    books(filter: BookFilter, page: Int = 0, size: Int = 20): BookConnection!
+    author(id: ID!): Author
+    authors(filter: AuthorFilter, page: Int = 0, size: Int = 20): AuthorConnection!
+}
+
+type Mutation {
+    createBook(input: CreateBookInput!): Book!
+    updateBook(id: ID!, input: UpdateBookInput!): Book!
+    deleteBook(id: ID!): Boolean!
+    createAuthor(input: CreateAuthorInput!): Author!
+    updateAuthor(id: ID!, input: UpdateAuthorInput!): Author!
+    deleteAuthor(id: ID!): Boolean!
+    createReview(input: CreateReviewInput!): Review!
+}

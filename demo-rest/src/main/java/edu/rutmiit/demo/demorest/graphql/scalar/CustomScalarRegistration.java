@@ -1,0 +1,18 @@
+package edu.rutmiit.demo.demorest.graphql.scalar;
+
+import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsRuntimeWiring;
+import graphql.scalars.ExtendedScalars;
+import graphql.schema.idl.RuntimeWiring;
+
+@DgsComponent
+public class CustomScalarRegistration {
+
+    @DgsRuntimeWiring
+    public RuntimeWiring.Builder addScalars(RuntimeWiring.Builder builder) {
+        return builder
+                .scalar(ExtendedScalars.DateTime)
+                .scalar(ExtendedScalars.Date)
+                .scalar(ExtendedScalars.Json);
+    }
+}

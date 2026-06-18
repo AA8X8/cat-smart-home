@@ -1,0 +1,3 @@
+edu\rutmiit\demo\catgrpcanalyticsserver\config\GrpcServerLifecycle.class
+edu\rutmiit\demo\catgrpcanalyticsserver\service\CatAnalyticsServiceImpl.class
+edu\rutmiit\demo\catgrpcanalyticsserver\CatGrpcAnalyticsServerApplication.class

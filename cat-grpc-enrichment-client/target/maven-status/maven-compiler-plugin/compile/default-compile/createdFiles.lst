@@ -1,0 +1,5 @@
+edu\rutmiit\demo\catgrpcenrichmentclient\config\RabbitMQConfig.class
+edu\rutmiit\demo\catgrpcenrichmentclient\listener\CatCreatedListener.class
+edu\rutmiit\demo\catgrpcenrichmentclient\publisher\AnalyticsEventPublisher.class
+edu\rutmiit\demo\catgrpcenrichmentclient\CatGrpcEnrichmentClientApplication.class
+edu\rutmiit\demo\catgrpcenrichmentclient\config\GrpcClientConfig.class

@@ -1,0 +1,199 @@
+# Типы данных
+
+type Cat {
+    id: ID!
+    name: String!
+    breed: String
+    birthDate: String          # ISO date
+    description: String
+    activityStatus: String
+    lastEventTime: String      # ISO datetime
+    createdAt: String
+    updatedAt: String
+}
+
+enum EventType {
+    BOWL_EMPTY
+    LITTER_USED
+    INACTIVITY
+    DOOR_OPENED
+    BOWL_FILLED
+    LITTER_CLEANED
+    TOY_ACTIVATED
+    NOTIFICATION_SENT
+}
+
+type Event {
+    id: ID!
+    type: EventType!
+    catId: ID
+    timestamp: String!
+    payload: JSON              # произвольные данные
+    processed: Boolean!
+}
+
+enum ActionType {
+    FILL_BOWL
+    CLEAN_LITTER
+    ACTIVATE_TOY
+    SEND_NOTIFICATION
+}
+
+type Action {
+    actionId: ID!
+    type: ActionType!
+    status: ActionStatus!
+    message: String
+    timestamp: String!
+}
+
+enum ActionStatus {
+    SUCCESS
+    ERROR
+}
+
+type Notification {
+    id: ID!
+    title: String!
+    body: String!
+    triggerEvent: EventType
+    sentAt: String!
+    read: Boolean!
+}
+
+# Пагинированные ответы
+
+type CatPage {
+    content: [Cat!]!
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+    last: Boolean!
+}
+
+type EventPage {
+    content: [Event!]!
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+    last: Boolean!
+}
+
+type ActionPage {
+    content: [Action!]!
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+    last: Boolean!
+}
+
+type NotificationPage {
+    content: [Notification!]!
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+    last: Boolean!
+}
+
+type EventStatistics {
+    totalEvents: Int!
+    bowlEmptyCount: Int!
+    litterUsedCount: Int!
+    inactivityCount: Int!
+    doorOpenedCount: Int!
+    notificationsSent: Int!
+}
+
+# Входные типы для мутаций
+
+input CatInput {
+    name: String!
+    breed: String
+    birthDate: String
+    description: String
+}
+
+input CatPatchInput {
+    name: String
+    breed: String
+    birthDate: String
+    description: String
+    activityStatus: String
+}
+
+input EventInput {
+    type: EventType!
+    catId: ID
+    payload: JSON
+}
+
+input ActionInput {
+    type: ActionType!
+    catId: ID
+    parameters: JSON
+}
+
+# Скаляр для произвольных JSON-данных (реализуется на сервере)
+scalar JSON
+
+# Корневые типы
+
+type Query {
+    # Кошки
+    cats(page: Int = 0, size: Int = 20): CatPage!
+    catById(id: ID!): Cat
+
+    # События
+    events(
+        type: EventType
+        catId: ID
+        from: String      # ISO datetime
+        to: String
+        page: Int = 0
+        size: Int = 20
+    ): EventPage!
+    eventById(id: ID!): Event
+
+    # Действия
+    actions(
+        catId: ID
+        type: ActionType
+        page: Int = 0
+        size: Int = 20
+    ): ActionPage!
+    actionById(id: ID!): Action
+
+    # Уведомления
+    notifications(
+        read: Boolean
+        from: String
+        to: String
+        page: Int = 0
+        size: Int = 20
+    ): NotificationPage!
+    notificationById(id: ID!): Notification
+
+    # Статистика
+    eventStats(from: String!, to: String!): EventStatistics!
+}
+
+type Mutation {
+    # Управление котами
+    createCat(input: CatInput!): Cat!
+    updateCat(id: ID!, input: CatInput!): Cat!
+    patchCat(id: ID!, input: CatPatchInput!): Cat!
+    deleteCat(id: ID!): ID!
+
+    # Создание события (ручное или для теста)
+    createEvent(input: EventInput!): Event!
+
+    # Выполнение действия
+    executeAction(input: ActionInput!): Action!
+
+    # Отметка уведомления как прочитанного
+    markNotificationAsRead(id: ID!): Notification!
+}
