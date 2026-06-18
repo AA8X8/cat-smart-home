@@ -38,8 +38,6 @@
 | `cat-grpc-enrichment-client` | Подписывается на `cat.created`, вызывает gRPC, публикует `cat.enriched` |
 | `notification-service` | WebSocket-сервер, рассылает уведомления о событиях |
 
-![Архитектура](https://via.placeholder.com/800x400?text=Architecture+Diagram+%28Placeholder%29)
-
 ---
 
 ## 🛠 Стек технологий
